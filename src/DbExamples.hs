@@ -1,7 +1,8 @@
 {-# LANGUAGE QuasiQuotes #-}
 
 module DbExamples (
-  showOldPeople
+  showOldPeople,
+  retrieveOldPeople
 ) where
 
 import Data.Int
@@ -14,6 +15,8 @@ import qualified Hasql.Connection as Connection
 import qualified Hasql.TH as TH
 import qualified Data.Vector as V
 
+import Models
+
 showOldPeople :: IO ()
 showOldPeople = do
   conn <- Connection.acquire connectionSettings
@@ -23,11 +26,26 @@ showOldPeople = do
       result <- Session.run (selectOlderThanSession 15) connection
       mapM_ putStrLn ((\(n, a) -> unpack n ++ " " ++ show a) <$> fromRight undefined result )
 
-  where
-    connectionSettings = Connection.settings
-      "51.158.130.90" 10997
-      "admin" "F%HzxKnu9|X7ec24Z)"
-      "rdb"
+
+connectionSettings = Connection.settings
+  "51.158.130.90" 10997
+  "admin" "F%HzxKnu9|X7ec24Z)"
+  "rdb"
+
+retrieveOldPeople :: IO [Person]
+retrieveOldPeople = do
+  conn <- Connection.acquire connectionSettings
+  case conn of
+    Left err -> error $ "err 1: " ++ show err
+    Right connection -> do
+      result <- Session.run (selectOlderThanSession 15) connection
+      case result of
+        Left _ -> error "err 2"
+        Right v -> pure $ fmap toPerson (V.toList v)
+          where
+            toPerson :: (Text, Int64) -> Person
+            toPerson (name, age) = Person name (fromIntegral age)
+
 
 
 selectOlderThanSession :: Int64 -> Session (V.Vector (Text, Int64))
