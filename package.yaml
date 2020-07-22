@@ -1,0 +1,109 @@
+name:                app
+version:             0.1.0.0
+github:              "Github username here/app"
+license:             BSD3
+author:              "Author name here"
+maintainer:          "Author email here"
+copyright:           "2019 Author name here"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            App category here
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/Github username here/app#readme>
+
+dependencies:
+- base
+#- postgresql-libpq
+- text
+- servant
+- hasql
+- hasql-th
+
+
+default-extensions:
+  - MultiWayIf                  # if | cond -> ...
+  - LambdaCase                  # \case A -> ...; B -> ...
+  - ViewPatterns                # size (view -> Unit) = 1   apply view on arg and match
+  - OverloadedStrings           # overload string literals
+  - NegativeLiterals
+  - NumDecimals                 # allow 1.2e6 literals
+  - BinaryLiterals              # allow 0b10101001 literals
+  - HexFloatLiterals            # 0x0.01 is the same as 1/256
+  - NumericUnderscores          # 1_000_000_000
+  - PartialTypeSignatures       # show warnings for type holes
+  - NamedWildCards              # named wildcards
+  - ApplicativeDo               # do-notation for applicatives
+  - Arrows                      # todo: https://downloads.haskell.org/ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-Arrows
+  - PostfixOperators            # allow (a .) instead of ((.) a)
+  - TupleSections               # partially applied tuples (,,,True,,,"Str")
+  - DuplicateRecordFields       # duplicate accessors within module
+  - NamedFieldPuns              # f (C {a}) = a  instead of   f (C {a = a}) = a
+  - RecordWildCards             # f (C {a = 1, ..}) = b + c + d
+  - DerivingStrategies          # stock/any class/newtype/via
+  - EmptyDataDeriving           # derive standard classes for empty data
+  - StandaloneDeriving          # deriving instance Eq a => Eq (SomeData a)
+  - GeneralizedNewtypeDeriving  # derive any typeclass of internal newtype's data
+  - DeriveGeneric               # derive Generic typeclass
+  - DeriveFunctor               # derive Functor for every ADT
+  - DeriveAnyClass              # derive any class with defaults
+  - DerivingVia                 # Data deriving SomeClass via (SomeNewType Data)
+  - BangPatterns                # prevent laziness via !
+  - PatternSynonyms             # pattern synonyms for pattern matching (module M (pattern Zero) where)
+  - EmptyDataDecls              # allow data without ctors, use for phantom-types
+  - TypeOperators               # type operators (import M (type (+)))
+  - LiberalTypeSynonyms         # forall and Constraints in type synonyms
+  - DefaultSignatures           # default instance for type-class (for example Generic-based)
+  - GADTs
+  - MultiParamTypeClasses       # class SomeClass a b where ...
+  - FunctionalDependencies
+  - KindSignatures              # data Data (m :: Type -> Type) = ...
+  - DataKinds                   # lift data types to kinds
+  - ScopedTypeVariables         # scoped types via "forall a . ..."
+  - TypeApplications            # apply types explicitly via "@a"
+  - InstanceSigs                # type signature for typeclass instances
+  - TypeSynonymInstances        # instances for type synonyms
+  - FlexibleInstances           # flexible instance context
+  - FlexibleContexts            # flexible class context
+  - ConstrainedClassMethods     # constraints in class methods
+  - TypeFamilies                # data family, type family
+  - ConstraintKinds             # allow constraint kinds (for example type synonyms w constraints)
+  - RankNTypes                  # forall
+  #  - QuantifiedConstraints       # forall in const (Eq a, forall b. (Eq b) => Eq (f b))
+  - PolyKinds                   # replacement of TypeInType
+  - ImplicitParams              # (?cmp :: a -> a -> Bool) => [a] -> [a]
+  - AllowAmbiguousTypes         # allow types which can be passed only via @type
+#  - StandaloneKindSignatures    # kind sigs
+  - UnicodeSyntax
+
+library:
+  source-dirs: src
+
+executables:
+  app-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - app
+
+tests:
+  app-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - app
