@@ -85,6 +85,16 @@ default-extensions:
 
 library:
   source-dirs: src
+  ghc-options:
+    - -Weverything
+    - -Wcompat
+    - -Wno-safe
+    - -Wno-unused-top-binds
+    - -Wno-missing-import-lists
+    - -Wno-missing-safe-haskell-mode
+    - -Wno-implicit-prelude
+    - -Wno-unsafe
+    - -Wno-unused-packages
 
 executables:
   app-exe:
