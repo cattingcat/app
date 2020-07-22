@@ -21,8 +21,9 @@ description:         Please see the README on GitHub at <https://github.com/Gith
 
 dependencies:
 - base
-#- postgresql-libpq
 - text
+- vector
+- bytestring
 - servant
 - hasql
 - hasql-th
@@ -101,6 +102,16 @@ executables:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
+    - -Weverything
+    - -Wcompat
+    - -Wno-safe
+    - -Wno-unused-top-binds
+    - -Wno-missing-import-lists
+    - -Wno-missing-safe-haskell-mode
+    - -Wno-implicit-prelude
+    - -Wno-unsafe
+    - -Wno-unused-packages
+
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
