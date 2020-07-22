@@ -24,7 +24,12 @@ dependencies:
 - text
 - vector
 - bytestring
+- mtl
+- aeson
 - servant
+- servant-server
+- wai
+- warp
 - hasql
 - hasql-th
 
