@@ -2,7 +2,9 @@
 
 module DbExamples (
   showOldPeople,
-  retrieveOldPeople
+  showOldPeople',
+  retrieveOldPeople,
+  retrieveOldPeople'
 ) where
 
 import Data.Int
@@ -16,10 +18,18 @@ import qualified Hasql.TH as TH
 import qualified Data.Vector as V
 
 import Models
+import App.App (StartupConfig(..), App)
+import Control.Monad.Reader
 
-showOldPeople :: IO ()
+
+showOldPeople :: App ()
 showOldPeople = do
-  conn <- Connection.acquire connectionSettings
+  r <- ask
+  liftIO $ showOldPeople' r
+
+showOldPeople' :: StartupConfig -> IO ()
+showOldPeople' (StartupConfig q w e r t) = do
+  conn <- Connection.acquire (Connection.settings q w e r t)
   case conn of
     Left err -> print err
     Right connection -> do
@@ -27,14 +37,14 @@ showOldPeople = do
       mapM_ putStrLn ((\(n, a) -> unpack n ++ " " ++ show a) <$> fromRight undefined result )
 
 
-connectionSettings = Connection.settings
-  "51.158.130.90" 10997
-  "admin" "F%HzxKnu9|X7ec24Z)"
-  "rdb"
-
-retrieveOldPeople :: IO [Person]
+retrieveOldPeople :: App [Person]
 retrieveOldPeople = do
-  conn <- Connection.acquire connectionSettings
+  r <- ask
+  liftIO $ retrieveOldPeople' r
+
+retrieveOldPeople' :: StartupConfig -> IO [Person]
+retrieveOldPeople' (StartupConfig q w e r t) = do
+  conn <- Connection.acquire (Connection.settings q w e r t)
   case conn of
     Left err -> error $ "err 1: " ++ show err
     Right connection -> do
@@ -45,7 +55,6 @@ retrieveOldPeople = do
           where
             toPerson :: (Text, Int64) -> Person
             toPerson (name, age) = Person name (fromIntegral age)
-
 
 
 selectOlderThanSession :: Int64 -> Session (V.Vector (Text, Int64))

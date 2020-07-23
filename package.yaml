@@ -26,6 +26,8 @@ dependencies:
 - vector
 - bytestring
 - mtl
+- optparse-applicative
+- envy
 - aeson
 - servant
 - servant-server

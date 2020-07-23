@@ -1,6 +1,14 @@
-module Lib
-    ( someFunc
-    ) where
+module Lib (
+  showIntro
+) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+import App.App (App)
+import Control.Monad.Reader
+
+
+showIntro :: App ()
+showIntro = do
+  conf <- ask
+  liftIO $ putStrLn "Startup config:"
+  liftIO $ print conf
+
