@@ -23,6 +23,7 @@ dependencies:
 - ghc-prim
 - base
 - text
+- time
 - vector
 - bytestring
 - mtl
@@ -35,6 +36,7 @@ dependencies:
 - warp
 - hasql
 - hasql-th
+- hasql-pool
 
 
 default-extensions:

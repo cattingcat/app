@@ -1,4 +1,4 @@
-module App.App (
+module App (
   StartupConfig(..),
   StartupError,
   App,
@@ -16,11 +16,11 @@ import Text.Read (readMaybe)
 
 
 data StartupConfig = StartupConfig
-  { host :: ByteString
-  , port :: Word16
-  , user :: ByteString
-  , pass :: ByteString
-  , dbName :: ByteString
+  { host :: !ByteString
+  , port :: !Word16
+  , user :: !ByteString
+  , pass :: !ByteString
+  , dbName :: !ByteString
   } deriving stock Show
 
 data StartupError = DbAddressNotSpecified
@@ -87,3 +87,4 @@ readEnvArgs = do
   pure $ case eith of
     Left  _ -> DBConfig Nothing Nothing Nothing Nothing Nothing
     Right r -> r
+    

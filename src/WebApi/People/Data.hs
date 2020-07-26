@@ -1,4 +1,4 @@
-module Models (
+module WebApi.People.Data (
   Person(..)
 ) where
 
@@ -7,9 +7,9 @@ import GHC.Generics (Generic)
 import Data.Text (Text)
 
 
-data Person = Person
+data Person = MkPerson
   { name :: Text
   , age :: Int
   }
-  deriving stock (Eq, Show, Generic)
+  deriving stock (Show, Generic)
   deriving anyclass (ToJSON)

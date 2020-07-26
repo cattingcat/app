@@ -2,8 +2,8 @@ module Lib (
   showIntro
 ) where
 
-import App.App (App)
 import Control.Monad.Reader
+import App
 
 
 showIntro :: App ()

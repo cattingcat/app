@@ -1,6 +1,6 @@
 {-# LANGUAGE QuasiQuotes #-}
 
-module DbExamples (
+module WebApi.People.PersonDb (
   showOldPeople,
   showOldPeople',
   retrieveOldPeople,
@@ -17,8 +17,8 @@ import qualified Hasql.Connection as Connection
 import qualified Hasql.TH as TH
 import qualified Data.Vector as V
 
-import Models
-import App.App (StartupConfig(..), App)
+import App (StartupConfig(..), App)
+import WebApi.People.Data
 import Control.Monad.Reader
 
 
@@ -54,7 +54,7 @@ retrieveOldPeople' (StartupConfig q w e r t) = do
         Right v -> pure $ fmap toPerson (V.toList v)
           where
             toPerson :: (Text, Int64) -> Person
-            toPerson (name, age) = Person name (fromIntegral age)
+            toPerson (name, age) = MkPerson name (fromIntegral age)
 
 
 selectOlderThanSession :: Int64 -> Session (V.Vector (Text, Int64))

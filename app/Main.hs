@@ -1,10 +1,10 @@
 module Main (main) where
 
 import Lib (showIntro)
-import DbExamples (showOldPeople)
-import ServantExamples(runServer)
+import WebApi.People.PersonDb (showOldPeople)
+import WebApi.WepApiApp (runServer)
 
-import App.App(
+import App(
   loadConfig,
   App)
 import Control.Monad.Reader
@@ -21,6 +21,6 @@ main = do
 app :: App ()
 app = do
   _ <- showIntro
-  _ <- showOldPeople
+--  _ <- showOldPeople
   _ <- runServer
   pure ()
