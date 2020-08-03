@@ -22,11 +22,14 @@ description:         Please see the README on GitHub at <https://github.com/Gith
 dependencies:
 - ghc-prim
 - base
+- safe
+- safe-exceptions
 - text
 - time
 - vector
 - bytestring
 - mtl
+#- capability
 - optparse-applicative
 - envy
 - aeson
@@ -93,38 +96,32 @@ default-extensions:
   - AllowAmbiguousTypes         # allow types which can be passed only via @type
 #  - StandaloneKindSignatures    # kind sigs
   - UnicodeSyntax
+  - QuasiQuotes
+  - TemplateHaskell
 
 library:
   source-dirs: src
   ghc-options:
-    - -Weverything
+    - -Wall
     - -Wcompat
-    - -Wno-safe
-    - -Wno-unused-top-binds
-    - -Wno-missing-import-lists
-    - -Wno-missing-safe-haskell-mode
-    - -Wno-implicit-prelude
-    - -Wno-unsafe
-    - -Wno-unused-packages
+    - -Wincomplete-record-updates
+    - -Wincomplete-uni-patterns
+    - -Wredundant-constraints
 
 executables:
   app-exe:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
-    - -Weverything
-    - -Wcompat
-    - -Wno-safe
-    - -Wno-unused-top-binds
-    - -Wno-missing-import-lists
-    - -Wno-missing-safe-haskell-mode
-    - -Wno-implicit-prelude
-    - -Wno-unsafe
-    - -Wno-unused-packages
+      - -Wall
+      - -Wcompat
+      - -Wincomplete-record-updates
+      - -Wincomplete-uni-patterns
+      - -Wredundant-constraints
 
-    - -threaded
-    - -rtsopts
-    - -with-rtsopts=-N
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
     dependencies:
     - app
 

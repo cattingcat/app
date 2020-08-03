@@ -1,5 +1,3 @@
-{-# LANGUAGE QuasiQuotes #-}
-
 module WebApi.Recipe.RecipeDb (
   test,
   favoriteRecipes

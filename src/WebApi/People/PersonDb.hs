@@ -1,5 +1,3 @@
-{-# LANGUAGE QuasiQuotes #-}
-
 module WebApi.People.PersonDb (
   showOldPeople,
   showOldPeople',
